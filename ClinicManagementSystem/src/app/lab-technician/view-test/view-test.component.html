@@ -1,0 +1,148 @@
+<!-- navbar  -->
+<nav class="navbar navbar-expand-lg shadow" style="background: #38b6ff">
+  <div class="container-fluid">
+    <a class="navbar-brand"
+      ><img
+        src="../../assets/images/logo.png"
+        class="img-fluid img logo"
+        alt=""
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNavDropdown"
+    >
+      <ul class="navbar-nav mx-3">
+        <!-- <li class="nav-item">
+              <a class="nav-link active text-bold button2" routerLink="/doctor"
+                >Dashboard</a
+              >
+            </li> -->
+        <li class="nav-item">
+          <a
+            class="nav-link active text-bold button2"
+            routerLink="/lab-technician"
+            >Test Advices</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-bold button2" routerLink="/viewreport"
+            >Test Bill</a
+          >
+        </li>
+
+        <li class="nav-item dropdown active">
+          <a
+            class="nav-link dropdown-toggle active button2"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              fill="currentColor"
+              class="bi bi-person-circle mx-3"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+            {{ this.username }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item text-danger" (click)="logout()">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- end navbar  -->
+<!-- navbar  -->
+
+<div class="container-fluid">
+  <div class="head d-flex flex-row justify-content-between">
+    <h3 class="display-6 my-3">Tests</h3>
+    <div class="button2" (click)="addTest()">Add Test</div>
+  </div>
+  <div
+    class="row p-3 justify-content-center shadow-sm"
+    style="border: 1px solid #109cf1"
+  >
+    <input
+      class="form-control m-0"
+      type="text"
+      placeholder="Search from the list"
+      [(ngModel)]="filter"
+    />
+    {{ filter }}
+  </div>
+
+  <table class="table table-bordered table-dark table-striped">
+    <thead>
+      <tr>
+        <th>TestID</th>
+        <th>Test Name</th>
+        <th>Test Description</th>
+        <th>Unit</th>
+        <th>MinRange</th>
+        <th>MaxRange</th>
+        <th>Total Amount</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- | filter: filter | paginate: {itemsPerPage :2, currentPage: page} -->
+      <tr
+        *ngFor="
+          let p of labtestService.tests
+            | filter: filter
+            | paginate: { itemsPerPage: 3, currentPage: page }
+        "
+      >
+        <td>{{ p.TestId }}</td>
+        <td>{{ p.TestName }}</td>
+        <td>{{ p.TestDescription }}</td>
+        <td>{{ p.Unit }}</td>
+        <td>{{ p.MinRange }}</td>
+        <td>{{ p.MaxRange }}</td>
+        <td>{{ p.TotalAmount }}</td>
+        <td>
+          <!-- button -->
+          <button
+            class="btn btn-primary"
+            (click)="updateTest(p.TestId)"
+            style="background-color: #38b6ff"
+          >
+            Edit
+          </button>
+          <!-- &nbsp;
+                    <button class="btn btn-sm btn-danger" (click)="deletePost(p.Postid)">Delete</button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer class="text-center">
+    <!-- pagination -->
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </footer>
+</div>

@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="header">
+    <div
+      class="form-control p-4"
+      style="
+        border: none;
+        box-shadow: 8px 8px 16px #e2e2e2, -8px -8px 16px #fafafa;
+        border-right: 3px solid #109cf1;
+        border-left: 3px solid #109cf1;
+        border-radius: 0.3rem;
+        padding: 0.5rem; ;
+      "
+    >
+      <div class="row my-2">
+        <!-- <h3 class="text-center">Consultaion Bills</h3> -->
+      </div>
+      <!-- Search -->
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Search Consultation using Name,Phone Number"
+        [(ngModel)]="filter"
+      />
+      <br />
+      <!--<a [routerLink]=" " class="btn btn-outline-secondary" style="float: right; margin-bottom:19px;">Test Report</a>-->
+      <div class="col">
+        <div
+          class="row"
+          *ngFor="
+            let con of receptionservice.consultationbills
+              | filter: filter
+              | paginate: { itemsPerPage: 1, currentPage: page }
+          "
+          id="pdfprint"
+        >
+          <h3 style="text-align: center">Consultation Bill</h3>
+          <span style="display: flex; justify-content: space-between">
+            <h6>ConsultationBill Id: {{ con.ConsultationBillId }}</h6>
+            <br />
+            <h6>
+              Date of Bill:{{ con.DateOfBill | date: "dd-MMM-yyyy hh:mm aa" }}
+            </h6>
+          </span>
+          <span style="display: flex; justify-content: space-between">
+            <h6>Patient Name : {{ con.PatientName }}</h6>
+            <h6>Doctor:{{ con.DoctorName }}</h6>
+          </span>
+          <span style="display: flex; justify-content: space-between">
+            <h6>Date of Birth:{{ con.DateOfBirth | date: "dd-MMM-yyyy" }}</h6>
+            <h6>Receptionist: {{ con.ReceptionistName }}</h6>
+          </span>
+          <span style="display: flex; justify-content: space-between">
+            <h6>Phone No: {{ con.Phone }}</h6>
+            <h6>Address :{{ con.Address }}</h6>
+          </span>
+          <span style="display: flex; justify-content: space-between">
+            <h6>Blood Group: {{ con.BloodGroup }}</h6>
+            <h6>
+              Appointment Date:
+              {{ con.AppointmentDate | date: "dd-MMM-yyyy hh:mm aa" }}
+            </h6>
+          </span>
+          <h5 style="text-align: center; font-family: Arial">
+            Consultation Bill: Rs .{{ con.ConsultationAmount }}
+          </h5>
+        </div>
+        <div class="my-2 px-5 d-flex justify-content-center">
+          <button
+            printTitle="Clinic Management System"
+            printSectionId="pdfprint"
+            class="btn btn-sm button2 text-center"
+            ngxPrint
+          >
+            Print
+          </button>
+        </div>
+        <footer class="text-center my-2">
+          <pagination-controls
+            (pageChange)="page = $event"
+          ></pagination-controls>
+        </footer>
+      </div>
+    </div>
+    <br />
+  </div>
+</div>

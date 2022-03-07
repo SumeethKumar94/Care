@@ -1,0 +1,78 @@
+<div class="container-lg">
+  <div class="header">
+    <div
+      class="form-control"
+      style="
+        border: none;
+        box-shadow: 8px 8px 16px #e2e2e2, -8px -8px 16px #fafafa;
+        border-right: 3px solid #109cf1;
+        border-left: 3px solid #109cf1;
+        border-radius: 0.3rem;
+        padding: 0.5rem; ;
+      "
+    >
+      <div class="row">
+        <h3 class="text-center">Appointments</h3>
+      </div>
+      <!-- Search -->
+      <div class="px-5">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Search Appointment using Name,Phone Number"
+          [(ngModel)]="filter"
+        />
+      </div>
+      <br />
+      <div style="display: flex; justify-content: flex-end">
+        <select #filters (change)="Bind(filters.value)">
+          <option value="1">Booked</option>
+          <option value="2">With Doctor</option>
+          <option value="3">Ready to Bill</option>
+          <option value="5">Serviced</option>
+        </select>
+      </div>
+      <br />
+      <table class="table table-dark table-stripped">
+        <thead>
+          <tr>
+            <th>Appointment ID</th>
+            <th>Token no</th>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Phone no</th>
+            <th>Doctor</th>
+            <th>Receptionist</th>
+            <th>Appointment Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let app of receptionservice.appointments
+                | filter: filter
+                | paginate: { itemsPerPage: 5, currentPage: page }
+            "
+          >
+            <td>{{ app.AppointmentId }}</td>
+            <td>{{ app.TokenNo }}</td>
+            <td>{{ app.PatientId }}</td>
+            <td>{{ app.PatientName }}</td>
+            <td>{{ app.PhoneNumber }}</td>
+            <td>{{ app.DoctorName }}</td>
+            <td>{{ app.Receptionistname }}</td>
+            <td>{{ app.AppointmentDate | date: "dd-MMM-yyyy hh:mm aa" }}</td>
+            <!--<td> <button class="btn btn-sm btn-primary">Edit</button> &nbsp;&nbsp;-->
+            <!--(click)="updateEmployee(emp.EmployeeID)"
+                        </td>-->
+          </tr>
+        </tbody>
+      </table>
+      <br />
+      <pagination-controls
+        class="text-center"
+        (pageChange)="page = $event"
+      ></pagination-controls>
+    </div>
+  </div>
+</div>

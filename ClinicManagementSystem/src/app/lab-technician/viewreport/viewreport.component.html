@@ -1,0 +1,191 @@
+<!-- navbar  -->
+<nav class="navbar navbar-expand-lg shadow" style="background: #38b6ff">
+  <div class="container-fluid">
+    <a class="navbar-brand"
+      ><img
+        src="../../assets/images/logo.png"
+        class="img-fluid img logo"
+        alt=""
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNavDropdown"
+    >
+      <ul class="navbar-nav mx-3">
+        <!-- <li class="nav-item">
+                  <a class="nav-link active text-bold button2" routerLink="/doctor"
+                    >Dashboard</a
+                  >
+                </li> -->
+        <li class="nav-item">
+          <a
+            class="nav-link active text-bold button2"
+            routerLink="/lab-technician"
+            >Test Advices</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-bold button2" routerLink="/viewtest"
+            >Tests</a
+          >
+        </li>
+
+        <li class="nav-item dropdown active">
+          <a
+            class="nav-link dropdown-toggle active button2"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              fill="currentColor"
+              class="bi bi-person-circle mx-3"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+            {{ this.loggedUser }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item text-danger" (click)="logOut()">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- end navbar  -->
+<!-- navbar  -->
+
+<div class="container-fluid mx-3">
+  <h3 class="display-6 my-3">Test Report</h3>
+
+  <div
+    class="shadow-sm p-5 m-2"
+    style="border: 0px; border-bottom: 3px solid #38b6ff"
+  >
+    <div class="form">
+      <!-- Search -->
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Search TestReport using Name,Phone Number"
+        [(ngModel)]="filter"
+      />
+      <br />
+
+      <div
+        class="row"
+        *ngFor="
+          let rep of labtestservice.testreports
+            | filter: filter
+            | paginate: { itemsPerPage: 1, currentPage: page }
+        "
+      >
+        <!--<div   *ngFor=" let items of rep index as i">-->
+        <br />
+        <h3 style="text-align: center">Test Report</h3>
+        <div id="pdfTable">
+          <span style="display: flex; justify-content: space-between"
+            ><h5>Report Id: {{ rep.LabBillId }}</h5>
+            <h5>
+              Appointment Date :
+              {{ rep.AppointmentDate | date: "dd-MMM-yyyy hh:mm aa" }}
+            </h5></span
+          >
+          <span style="display: flex; justify-content: space-between">
+            <h5>Patient Name: {{ rep.PatientName }}</h5>
+            <h5>
+              Test Report Date:{{
+                rep.DateOfReport | date: "dd-MMM-yyyy hh:mm aa"
+              }}
+            </h5></span
+          >
+          <span style="display: flex; justify-content: space-between">
+            <h5>Phone No:{{ rep.Phone }}</h5>
+            <h5>Doctor: {{ rep.DoctorName }}</h5>
+          </span>
+          <span style="display: flex; justify-content: space-between">
+            <h5>Blood Group: {{ rep.BloodGroup }}</h5>
+            <h5>Lab Technician:{{ rep.LabTechnician }}</h5>
+          </span>
+          <table class="table table-primary table-striped table-bordered my-4">
+            <thead>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Value</th>
+              <th>Min-Range</th>
+              <th>Max-Range</th>
+              <th>Test Rate</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of rep.TestReport; index as k">
+                <td>{{ rep.TestReport[k].TestName }}</td>
+                <td>{{ rep.TestReport[k].TestDescription }}</td>
+                <div
+                  *ngIf="
+                    rep.TestReport[k].TestValue > rep.TestReport[k].MaxRange ||
+                      rep.TestReport[k].TestValue < rep.TestReport[k].MinRange;
+                    else elseBlock
+                  "
+                  [ngIfElse]="testrep"
+                >
+                  <td style="color: red">{{ rep.TestReport[k].TestValue }}</td>
+                </div>
+
+                <ng-template #elseBlock>
+                  <td style="color: rgb(53, 119, 49)">
+                    {{ rep.TestReport[k].TestValue }}
+                  </td>
+                </ng-template>
+                <td id="min">{{ rep.TestReport[k].MinRange }}</td>
+                <td id="max">{{ rep.TestReport[k].MaxRange }}</td>
+                <td>{{ rep.TestReport[k].TotalAmount }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h5 style="text-align: center">
+            <p style="font-size: 2rem">
+              Total Amount: Rs.{{ rep.TotalAmount }}
+            </p>
+          </h5>
+        </div>
+        <div class="d-flex justify-content-center my-4">
+          <button
+            printTitle="Clinic Management System"
+            printSectionId="pdfTable"
+            class="button2"
+            ngxPrint
+          >
+            Print
+          </button>
+        </div>
+      </div>
+    </div>
+    <br />
+    <footer class="d-flex justify-content-center">
+      <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    </footer>
+  </div>
+</div>

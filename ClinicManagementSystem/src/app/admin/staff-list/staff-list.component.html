@@ -1,0 +1,168 @@
+<!-- navbar  -->
+<nav class="navbar navbar-expand-lg shadow" style="background: #38b6ff">
+  <div class="container-fluid">
+    <a class="navbar-brand"
+      ><img
+        src="../../assets/images/logo.png"
+        class="img-fluid img logo"
+        alt=""
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNavDropdown"
+    >
+      <ul class="navbar-nav mx-3">
+        <!-- <li class="nav-item">
+          <a class="nav-link active text-bold button2" routerLink="/doctor"
+            >Dashboard</a
+          >
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link active text-bold button2" routerLink="/admin"
+            >Dashboard</a
+          >
+        </li>
+
+        <li class="nav-item dropdown active">
+          <a
+            class="nav-link dropdown-toggle active button2"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              fill="currentColor"
+              class="bi bi-person-circle mx-3"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+            {{ this.loggedUser }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item text-danger" (click)="logOut()">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- contents  -->
+<div
+  class="container mt-5 px-3"
+  style="
+    border: none;
+    box-shadow: 8px 8px 16px #e2e2e2, -8px -8px 16px #fafafa;
+    border-right: 3px solid #109cf1;
+    border-left: 3px solid #109cf1;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+  "
+>
+  <div
+    class="my-3"
+    style="display: flex; flex-direction: row; justify-content: space-between"
+  >
+    <h2 class="display-6 py-3">Staffs</h2>
+    <button class="button1" (click)="toAddStaff()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-plus-circle"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+        />
+        <path
+          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+        />
+      </svg>
+      Add Staff
+    </button>
+  </div>
+  <div class="row p-3 justify-content-center" style="border: none">
+    <input
+      class="form-control m-0"
+      type="text"
+      placeholder="Search from the list"
+      [(ngModel)]="filter"
+    />
+    {{ filter }}
+  </div>
+  <!-- table and contents  -->
+  <div class="m-2 p-3 shadow-sm">
+    <table class="table table-dark table-striped">
+      <thead class="table-head" style="background-color: rgb(118, 197, 211)">
+        <tr>
+          <th>StaffID</th>
+          <th>first Name</th>
+          <th>Last Name</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>DateOfBirth</th>
+          <th>Qualification</th>
+          <th>Role Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let s of staffService.staffs
+              | filter: filter
+              | paginate: { itemsPerPage: 5, currentPage: page }
+          "
+        >
+          <td>{{ s.StaffId }}</td>
+          <td>{{ s.FirstName }}</td>
+          <td>{{ s.LastName }}</td>
+          <td>{{ s.Phone }}</td>
+          <td>{{ s.Address }}</td>
+          <td>{{ s.DateOfBirth | date: "dd-MMM-yyyy" }}</td>
+          <td>{{ s.Qualification }}</td>
+          <td>{{ s.Role1 }}</td>
+          <td>{{ s.Status }}</td>
+          <td>
+            <!-- button -->
+            <button
+              class="btn btn-sm btn-info"
+              (click)="toUpdateStaff(s.StaffId)"
+            >
+              Edit
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer>
+    <!-- pagination -->
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </footer>
+</div>
+<!-- end of contents -->

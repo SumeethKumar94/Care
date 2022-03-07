@@ -1,0 +1,145 @@
+<!-- navbar  -->
+<nav class="navbar navbar-expand-lg shadow" style="background: #38b6ff">
+  <div class="container-fluid">
+    <a class="navbar-brand"
+      ><img
+        src="../../assets/images/logo.png"
+        class="img-fluid img logo"
+        alt=""
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNavDropdown"
+    >
+      <ul class="navbar-nav mx-3">
+        <!-- <li class="nav-item">
+            <a class="nav-link active text-bold button2" routerLink="/doctor"
+              >Dashboard</a
+            >
+          </li> -->
+        <li class="nav-item">
+          <a class="nav-link active text-bold button2" routerLink="/staff-list"
+            >Staffs</a
+          >
+        </li>
+
+        <li class="nav-item dropdown active">
+          <a
+            class="nav-link dropdown-toggle active button2"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              fill="currentColor"
+              class="bi bi-person-circle mx-3"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+            {{ this.username }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item text-danger" (click)="logout()">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- end navbar  -->
+<!-- contents  -->
+<div class="container-fluid">
+  <div class="row">
+    <h2 class="display-6 my-3">Admin Dashboard</h2>
+  </div>
+  <!-- contetn cards  -->
+  <div
+    class="container"
+    style="
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      flex-wrap: wrap;
+      flex-basis: 1;
+    "
+  >
+    <div class="item 1" style="display: flex; flex-direction: row">
+      <div
+        class="img"
+        style="display: flex; justify-content: center; align-items: center"
+      >
+        <img
+          style="width: 8rem"
+          src="https://img.icons8.com/color/96/000000/employee-card.png"
+        />
+      </div>
+      <div class="content">
+        <h5 class="text-center my-2 h4">Manage Staff</h5>
+        <ul style="list-style: none">
+          <li class="button2" routerLink="/staff-list">VIew Staffs</li>
+          <li class="button2" (click)="toAddStaff()">Add New Staffs</li>
+          <li class="button2" routerLink="/remove-staff">Disable Staff</li>
+          <li class="button2" routerLink="/add-qualification">
+            Add Qualifications
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="item 2 py-3" style="display: flex; flex-direction: row">
+      <div
+        class="p-3"
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 3rem;
+        "
+      >
+        <img
+          class="m-3"
+          style="width: 10rem"
+          src="https://img.icons8.com/color/96/000000/combo-chart--v1.png"
+        />
+      </div>
+      <div class="content">
+        <h5 class="text-center my-2 h4">Manage Reports</h5>
+        <ul style="list-style: none">
+          <li class="button2" routerLink="/view-medicine-stock">
+            View Medicine Stock Reports
+          </li>
+          <li class="button2" routerLink="/view-sales-report">
+            View Sales Reports
+          </li>
+          <li class="button2" routerLink="/view-lab-report">
+            View Lab Reports
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- contetn cards  -->
+</div>
+<!-- end contents  -->
+<!-- footer  -->

@@ -1,0 +1,122 @@
+<!-- navbar  -->
+<nav class="navbar navbar-expand-lg shadow" style="background: #38b6ff">
+  <div class="container-fluid">
+    <a class="navbar-brand"
+      ><img
+        src="../../assets/images/logo.png"
+        class="img-fluid img logo"
+        alt=""
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNavDropdown"
+    >
+      <ul class="navbar-nav mx-3">
+        <!-- <li class="nav-item">
+              <a class="nav-link active text-bold button2" routerLink="/doctor"
+                >Dashboard</a
+              >
+            </li> -->
+        <li class="nav-item">
+          <a class="nav-link active text-bold button2" routerLink="/admin"
+            >Dashboard</a
+          >
+        </li>
+
+        <li class="nav-item dropdown active">
+          <a
+            class="nav-link dropdown-toggle active button2"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              fill="currentColor"
+              class="bi bi-person-circle mx-3"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+            {{ this.loggedUser }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item text-danger" (click)="logOut()">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div
+  class="container px-4 mt-3"
+  style="
+    border: none;
+    box-shadow: 8px 8px 16px #e2e2e2, -8px -8px 16px #fafafa;
+    border-right: 3px solid #109cf1;
+    border-left: 3px solid #109cf1;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+  "
+>
+  <h3 class="text-center mt-4">Lab Reports</h3>
+  <div class="header px-4 m-1">
+    <input
+      class="form-control"
+      style="padding: 10px; margin-top: 40px"
+      type="text"
+      placeholder="Search  by ID, Name"
+      [(ngModel)]="filter"
+    />
+    <!-- {{filter}} -->
+  </div>
+  <div style="margin-top: 20px px-4">
+    <table class="table table-dark table-striped">
+      <thead class="table-head" style="background-color: rgb(118, 197, 211)">
+        <tr>
+          <th>Test Name</th>
+          <th>Number of Tests</th>
+          <th>Total Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let s of staffService.labreports
+              | filter: filter
+              | paginate: { itemsPerPage: 5, currentPage: page }
+          "
+        >
+          <td>{{ s.TestName }}</td>
+          <td>{{ s.TotalCount }}</td>
+          <td>{{ s.TotalPrice }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer>
+    <!-- pagination -->
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </footer>
+</div>

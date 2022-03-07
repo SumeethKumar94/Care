@@ -1,0 +1,177 @@
+<!-- navbar  -->
+<nav class="navbar navbar-expand-lg shadow" style="background: #38b6ff">
+  <div class="container-fluid">
+    <a class="navbar-brand"
+      ><img
+        src="../../assets/images/logo.png"
+        class="img-fluid img logo"
+        alt=""
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNavDropdown"
+    >
+      <ul class="navbar-nav mx-3">
+        <!-- <li class="nav-item">
+          <a class="nav-link active text-bold button2" routerLink="/doctor"
+            >Dashboard</a
+          >
+        </li> -->
+
+        <li class="nav-item dropdown active">
+          <a
+            class="nav-link dropdown-toggle active button2"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              fill="currentColor"
+              class="bi bi-person-circle mx-3"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+            {{ this.username }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item text-danger" (click)="logout()">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- navbar  -->
+<!-- contents  -->
+<div class="container-fluid">
+  <div class="row">
+    <h2 class="display-6 my-3">Dashboard</h2>
+  </div>
+  <br />
+  <div class="parent" style="background-color: #fff">
+    <button
+    class="button2 "
+    type="button"
+    id="dropdownMenuButton1"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+    (click)="home()"
+  >
+Home
+  </button>
+    <div class="dropdown">
+      <button
+        class="button2 dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Patients
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+          <a class="dropdown-item" (click)="addPatients()">Add Patients</a>
+        </li>
+        <li>
+          <a class="dropdown-item" (click)="viewPatients()">View Patients</a>
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <button
+        class="button2 dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Appointments
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+          <a class="dropdown-item" (click)="viewAppoint()">View Appointments</a>
+        </li>
+
+        <li>
+          <a class="dropdown-item" (click)="addAppoint()">Book Appointments</a>
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <button
+        class="button2 dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Consultation
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+          <a class="dropdown-item" (click)="addConsult()"
+            >Add Consultation Bill
+          </a>
+        </li>
+
+        <li>
+          <a class="dropdown-item" (click)="viewConsult()"
+            >View Consultation Bill</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <button
+        class="button2 dropdown-toggle"
+        type="button"
+        id="dropdownMenuButton1"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+      >
+        Invoice
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+          <a class="dropdown-item" (click)="addInvoice()">Add Invoice Bill </a>
+        </li>
+        <li>
+          <a class="dropdown-item" (click)="viewInvoice()">View Invoice Bill</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row my-5">
+    <iframe
+      id="frame"
+      src="receptionist/dashboard"
+      class="responsive-iframe"
+      scrolling="no"
+      style="border: none"
+    >
+    </iframe>
+  </div>
+</div>

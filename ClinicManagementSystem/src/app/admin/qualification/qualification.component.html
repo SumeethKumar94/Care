@@ -1,0 +1,163 @@
+<!-- navbar  -->
+<nav class="navbar navbar-expand-lg shadow" style="background: #38b6ff">
+  <div class="container-fluid">
+    <a class="navbar-brand"
+      ><img
+        src="../../assets/images/logo.png"
+        class="img-fluid img logo"
+        alt=""
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNavDropdown"
+    >
+      <ul class="navbar-nav mx-3">
+        <!-- <li class="nav-item">
+              <a class="nav-link active text-bold button2" routerLink="/doctor"
+                >Dashboard</a
+              >
+            </li> -->
+        <li class="nav-item">
+          <a class="nav-link active text-bold button2" routerLink="/admin"
+            >Dashboard</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link active button2"
+            aria-current="page"
+            routerLink="/reports"
+            >Reports</a
+          >
+        </li>
+
+        <li class="nav-item dropdown active">
+          <a
+            class="nav-link dropdown-toggle active button2"
+            id="navbarDropdownMenuLink"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              fill="currentColor"
+              class="bi bi-person-circle mx-3"
+              viewBox="0 0 16 16"
+            >
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path
+                fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+              />
+            </svg>
+            {{ this.loggedUser }}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li>
+              <a class="dropdown-item text-danger" (click)="logOut()">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="row">
+  <h3 class="text-center mt-5 display-6">Add Qualifications</h3>
+</div>
+
+<div>
+  <form
+    name="qualform"
+    #form="ngForm"
+    autocomplete="off"
+    style="
+      margin-top: 5px;
+      margin-left: 150px;
+      margin-right: 150px;
+      padding: 100px;
+    "
+    (ngSubmit)="onSubmit(form)"
+  >
+    <!-- roles dropdown -->
+    <div class="form-group">
+      <label style="color: black">Role :</label>
+      <select
+        name="RoleId"
+        id="RoleId"
+        class="form-control"
+        #RoleId="ngModel"
+        [(ngModel)]="staffService.qualFormData.RoleId"
+      >
+        <option value="0" disabled></option>
+        <option *ngFor="let r of staffService.roles" value="{{ r.RoleId }}">
+          {{ r.Role1 }}
+        </option>
+      </select>
+      <!-- validation -->
+      <div
+        class="validation-errors"
+        *ngIf="RoleId.touched && RoleId.invalid"
+        style="color: red; text-align: left"
+      >
+        <div *ngIf="RoleId.errors.required">Role is required!</div>
+      </div>
+    </div>
+
+    <br />
+
+    <!-- Staff last  Name -->
+    <div class="form-group">
+      <label style="color: black">Qualification : </label>
+      <input
+        type="text"
+        name="Qualification"
+        #Qualification="ngModel"
+        [(ngModel)]="staffService.qualFormData.Qualification"
+        class="form-control"
+        placeholder="Enter Qualification"
+        minlength="1"
+        maxlength="15"
+        required
+        [ngClass]="{
+          'is-invalid': Qualification.touched && Qualification.invalid
+        }"
+      />
+      <!-- validation -->
+      <div
+        class="validation-errors"
+        *ngIf="Qualification.touched && Qualification.invalid"
+        style="color: red; text-align: left"
+      >
+        <div *ngIf="Qualification.errors.required">
+          Qualification is required!
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+      <button
+        type="submit"
+        class="button2 form-control"
+        [disabled]="!(form.valid && form.dirty)"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
