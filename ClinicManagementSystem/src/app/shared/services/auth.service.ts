@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Staff } from '../class/staff';
 import { User } from '../class/user';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class AuthService {
       environment.apiUrl + '/' + user.LoginId + '/' + user.Password
 
       // https://localhost:44381/sreehari/password
-    );
+    ).pipe(map((resp: any) => resp.json()));
     console.log('loginverify');
   }
 
